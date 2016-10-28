@@ -22,17 +22,16 @@ OPTIONS = [
     help: 'Redis namespace for redis-ns'
   },
   {
-    names: ['queue-name', 'q']
+    names: ['queue-pop', 'q']
     type: 'string'
-    env: 'QUEUE_NAME'
-    help: 'Name of Redis work queue'
+    env: 'QUEUE_POP'
+    help: 'Name of Redis work queue to rpoplpush from'
   },
   {
-    names: ['queue-timeout', 't']
-    type: 'positiveInteger'
-    env: 'QUEUE_TIMEOUT'
-    default: 30
-    help: 'BRPOP timeout (in seconds)'
+    names: ['queue-push', 'p']
+    type: 'string'
+    env: 'QUEUE_PUSH'
+    help: 'Name of Redis work queue to rpoplpush into'
   },
   {
     names: ['help', 'h']
@@ -50,7 +49,7 @@ class Command
   constructor: ->
     process.on 'uncaughtException', @die
     @parser = dashdash.createParser({options: OPTIONS})
-    {@redis_uri, @redis_namespace, @queue_timeout, @queue_name} = @parseOptions()
+    {@redis_uri, @redis_namespace, @queue_pop, @queue_push} = @parseOptions()
 
   printHelp: =>
     options = { includeEnv: true, includeDefaults:true }
@@ -67,12 +66,12 @@ class Command
       console.log packageJSON.version
       process.exit 0
 
-    unless options.redis_uri? && options.redis_namespace? && options.queue_name? && options.queue_timeout?
+    unless options.redis_uri? && options.redis_namespace? && options.queue_pop? && options.queue_push?
       @printHelp()
       console.error chalk.red 'Missing required parameter --redis-uri, -r, or env: REDIS_URI' unless options.redis_uri?
       console.error chalk.red 'Missing required parameter --redis-namespace, -n, or env: REDIS_NAMESPACE' unless options.redis_namespace?
-      console.error chalk.red 'Missing required parameter --queue-timeout, -t, or env: QUEUE_TIMEOUT' unless options.queue_timeout?
-      console.error chalk.red 'Missing required parameter --queue-name, -u, or env: QUEUE_NAME' unless options.queue_name?
+      console.error chalk.red 'Missing required parameter --queue-push, -p, or env: QUEUE_PUSH' unless options.queue_push?
+      console.error chalk.red 'Missing required parameter --queue-pop, -q, or env: QUEUE_POP' unless options.queue_pop?
       process.exit 1
 
     return options
@@ -80,8 +79,7 @@ class Command
   run: =>
     @getWorkerClient (error, client) =>
       return @die error if error?
-
-      worker = new Worker { client, queueName: @queue_name, queueTimeout: @queue_timeout }
+      worker = new Worker { client, queuePop: @queue_pop, queuePush: @queue_push }
       worker.run @die
 
       sigtermHandler = new SigtermHandler { events: ['SIGINT', 'SIGTERM']}

@@ -2,10 +2,10 @@ async = require 'async'
 
 class Worker
   constructor: (options={})->
-    { @client, @queueName, @queueTimeout } = options
+    { @client, @queuePop, @queuePush } = options
     throw new Error('Worker: requires client') unless @client?
-    throw new Error('Worker: requires queueName') unless @queueName?
-    throw new Error('Worker: requires queueTimeout') unless @queueTimeout?
+    throw new Error('Worker: requires queuePop') unless @queuePop?
+    throw new Error('Worker: requires queuePush') unless @queuePush?
     @shouldStop = false
     @isStopped = false
 
@@ -17,17 +17,11 @@ class Worker
           callback error
 
   do: (callback) =>
-    @client.brpop @queueName, @queueTimeout, (error, result) =>
+    @client.time (error, time) =>
       return callback error if error?
-      return callback() unless result?
-
-      [ queue, data ] = result
-      try
-        data = JSON.parse data
-      catch error
+      @client.rpoplpush "#{@queuePop}:#{time[0]}", @queuePush, (error) =>
         return callback error
 
-      callback null, data
     return # avoid returning promise
 
   run: (callback) =>
