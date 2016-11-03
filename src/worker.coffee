@@ -38,7 +38,7 @@ class Worker
     , 5000
 
     interval = setInterval =>
-      return unless @isStopped?
+      return unless @isStopped
       clearInterval interval
       clearTimeout timeout
       callback()
