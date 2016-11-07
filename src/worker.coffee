@@ -1,4 +1,5 @@
-async = require 'async'
+async    = require 'async'
+overview = require('debug')('now-man-worker:worker:overview')
 
 class Worker
   constructor: (options={})->
@@ -8,6 +9,7 @@ class Worker
     throw new Error('Worker: requires queuePush') unless @queuePush?
     @shouldStop = false
     @isStopped = false
+    @lastTimestamp = null
 
   doWithNextTick: (callback) =>
     # give some time for garbage collection
@@ -17,10 +19,12 @@ class Worker
           callback error
 
   do: (callback) =>
-    @client.time (error, time) =>
+    @client.time (error, result) =>
       return callback error if error?
-      @client.rpoplpush "#{@queuePop}:#{time[0]}", @queuePush, (error) =>
-        return callback error
+      [timestamp] = result
+      overview "got time #{timestamp}" unless timestamp == @lastTimestamp
+      @lastTimestamp = timestamp
+      @client.rpoplpush "#{@queuePop}:#{timestamp}", @queuePush, callback
 
     return # avoid returning promise
 
