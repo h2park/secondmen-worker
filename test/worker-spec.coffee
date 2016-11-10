@@ -15,9 +15,6 @@ describe 'Worker', ->
     queuePush = 'maybe-later'
     @sut = new Worker { @client, queuePop, queuePush }
 
-  afterEach (done) ->
-    @sut.stop done
-
   describe '->do', ->
     beforeEach (done) ->
       @client.time (error, time) =>

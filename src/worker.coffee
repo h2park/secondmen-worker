@@ -8,8 +8,8 @@ class Worker
     throw new Error('Worker: requires queuePop') unless @queuePop?
     throw new Error('Worker: requires queuePush') unless @queuePush?
     @shouldStop = false
-    @isStopped = false
     @lastTimestamp = null
+    @isStopped = false
 
   doWithNextTick: (callback) =>
     # give some time for garbage collection
@@ -22,7 +22,7 @@ class Worker
     @client.time (error, result) =>
       return callback error if error?
       [timestamp] = result
-      overview "got time #{timestamp}" unless timestamp == @lastTimestamp
+      overview "i am still processing (#{timestamp})" if timestamp != @lastTimestamp and parseInt(timestamp) % 10 == 0
       @lastTimestamp = timestamp
       @client.rpoplpush "#{@queuePop}:#{timestamp}", @queuePush, callback
 
@@ -42,7 +42,7 @@ class Worker
     , 5000
 
     interval = setInterval =>
-      return unless @isStopped?
+      return unless @isStopped
       clearInterval interval
       clearTimeout timeout
       callback()
