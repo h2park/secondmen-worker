@@ -1,5 +1,5 @@
 async    = require 'async'
-overview = require('debug')('now-man-worker:worker:overview')
+overview = require('debug')('nowmen-worker:worker:overview')
 
 class Worker
   constructor: (options={})->
