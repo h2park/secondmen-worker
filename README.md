@@ -1,17 +1,17 @@
-# second-man-worker
+# secondmen-worker
 
-[![Build Status](https://travis-ci.org/https://github.com/octoblu/second-man-worker.svg?branch=master)](https://travis-ci.org/https://github.com/octoblu/second-man-worker)
-[![Test Coverage](https://codecov.io/gh/https://github.com/octoblu/second-man-worker/branch/master/graph/badge.svg)](https://codecov.io/gh/https://github.com/octoblu/second-man-worker)
-[![Dependency status](http://img.shields.io/david/https://github.com/octoblu/second-man-worker.svg?style=flat)](https://david-dm.org/https://github.com/octoblu/second-man-worker)
-[![devDependency Status](http://img.shields.io/david/dev/https://github.com/octoblu/second-man-worker.svg?style=flat)](https://david-dm.org/https://github.com/octoblu/second-man-worker#info=devDependencies)
+[![Build Status](https://travis-ci.org/https://github.com/octoblu/secondmen-worker.svg?branch=master)](https://travis-ci.org/https://github.com/octoblu/secondmen-worker)
+[![Test Coverage](https://codecov.io/gh/https://github.com/octoblu/secondmen-worker/branch/master/graph/badge.svg)](https://codecov.io/gh/https://github.com/octoblu/secondmen-worker)
+[![Dependency status](http://img.shields.io/david/https://github.com/octoblu/secondmen-worker.svg?style=flat)](https://david-dm.org/https://github.com/octoblu/secondmen-worker)
+[![devDependency Status](http://img.shields.io/david/dev/https://github.com/octoblu/secondmen-worker.svg?style=flat)](https://david-dm.org/https://github.com/octoblu/secondmen-worker#info=devDependencies)
 [![Slack Status](http://community-slack.octoblu.com/badge.svg)](http://community-slack.octoblu.com)
 
-[![NPM](https://nodei.co/npm/second-man-worker.svg?style=flat)](https://npmjs.org/package/second-man-worker)
+[![NPM](https://nodei.co/npm/secondmen-worker.svg?style=flat)](https://npmjs.org/package/secondmen-worker)
 
 ## Installing
 
 ```bash
-$ npm install second-man-worker
+$ npm install secondmen-worker
 ```
 
 ### Usage

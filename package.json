@@ -1,12 +1,12 @@
 {
-  "name": "second-man-worker",
+  "name": "secondmen-worker",
   "version": "1.0.2",
-  "description": "second-man-worker",
+  "description": "secondmen-worker",
   "keywords": [
     "worker"
   ],
-  "homepage": "https://github.com/octoblu/second-man-worker",
-  "bugs": "https://github.com/octoblu/second-man-worker/issues",
+  "homepage": "https://github.com/octoblu/secondmen-worker",
+  "bugs": "https://github.com/octoblu/secondmen-worker/issues",
   "author": {
     "name": "Octoblu",
     "url": "https://github.com/octoblu"
@@ -14,7 +14,7 @@
   "bin": "command.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/octoblu/second-man-worker.git"
+    "url": "https://github.com/octoblu/secondmen-worker.git"
   },
   "scripts": {
     "start": "node command.js",
