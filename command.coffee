@@ -20,18 +20,21 @@ OPTIONS = [
     type: 'string'
     env: 'REDIS_NAMESPACE'
     help: 'Redis namespace for redis-ns'
+    default: 'minutemen'
   },
   {
     names: ['queue-pop', 'q']
     type: 'string'
     env: 'QUEUE_POP'
     help: 'Name of Redis work queue to rpoplpush from'
+    default: 'secondsmen'
   },
   {
     names: ['queue-push', 'p']
     type: 'string'
     env: 'QUEUE_PUSH'
     help: 'Name of Redis work queue to rpoplpush into'
+    default: 'nowmen'
   },
   {
     names: ['help', 'h']
